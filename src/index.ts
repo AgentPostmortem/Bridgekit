@@ -247,10 +247,10 @@ function svg(body: string): Response {
 }
 
 const BRIDGEKIT_ICON =
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#0d0c0a"/><path d="M8 12h12l-3.5-3.5M24 20H12l3.5 3.5" stroke="#c9a35c" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#0b0a12"/><g fill="none" stroke="#a78bfa" stroke-width="2.4" stroke-linecap="round"><path d="M13.5 18.5a4.5 4.5 0 0 0 6.4 0l3.6-3.6a4.5 4.5 0 1 0-6.4-6.4l-1.8 1.8"/><path d="M18.5 13.5a4.5 4.5 0 0 0-6.4 0l-3.6 3.6a4.5 4.5 0 1 0 6.4 6.4l1.8-1.8"/></g></svg>';
 
 const BRIDGE_MARK_SVG =
-  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9h13l-2.6-2.6M20 15H7l2.6 2.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 13.5a3.5 3.5 0 0 0 5 0l3-3a3.5 3.5 0 1 0-5-5l-1.4 1.4M14 10.5a3.5 3.5 0 0 0-5 0l-3 3a3.5 3.5 0 1 0 5 5l1.4-1.4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
 
 const CHAT_SVG =
   '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3a9 9 0 0 0-9 9 9 9 0 0 0 1.3 4.6L3 21l4.6-1.3A9 9 0 1 0 12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
@@ -282,9 +282,8 @@ function landingPage(): string {
   return `<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bridgekit: scoped MCP server</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230d0c0a'/%3E%3Cpath d='M9 13h11l-3-3m6 9H12l3 3' stroke='%23c9a35c' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<meta name="description" content="Bridgekit is a scoped MCP server that exposes your company's tools to AI clients with per-key permissions, read/write separation, and an append-only audit log.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0a12'/%3E%3Cg fill='none' stroke='%23a78bfa' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M13.5 18.5a4.5 4.5 0 0 0 6.4 0l3.6-3.6a4.5 4.5 0 1 0-6.4-6.4l-1.8 1.8'/%3E%3Cpath d='M18.5 13.5a4.5 4.5 0 0 0-6.4 0l-3.6 3.6a4.5 4.5 0 1 0 6.4 6.4l1.8-1.8'/%3E%3C/g%3E%3C/svg%3E">
 <style>${LANDING_CSS}</style></head>
 <body><div class="glow"></div><main>
   <header>
@@ -376,26 +375,26 @@ function landingPage(): string {
 
 const LANDING_CSS = `
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0d0c0a;--bg2:#121110;--ink:#efece5;--mut:#98928a;--dim:#6e6962;--gold:#c9a35c;--gold-b:#e2c288;--line:rgba(239,236,229,.09);--line-s:rgba(239,236,229,.16);--serif:"Instrument Serif",Georgia,serif;--sans:Inter,ui-sans-serif,system-ui,sans-serif}
+:root{--bg:#0b0a12;--bg2:#131120;--ink:#ece9f6;--mut:#a49ec0;--dim:#8d86ab;--acc:#a78bfa;--acc2:#c6b3ff;--line:rgba(236,233,246,.09);--line-s:rgba(236,233,246,.17);--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 body{background:var(--bg);color:var(--ink);font:15px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
-::selection{background:var(--gold);color:#0d0c0a}
-.glow{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 45% at 18% -10%,rgba(201,163,92,.10),transparent 60%),radial-gradient(ellipse 45% 38% at 95% 6%,rgba(201,163,92,.05),transparent 55%)}
+::selection{background:var(--acc);color:#0b0a12}
+.glow{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 45% at 18% -10%,rgba(167,139,250,.10),transparent 60%),radial-gradient(ellipse 45% 38% at 95% 6%,rgba(167,139,250,.05),transparent 55%)}
 main{position:relative;max-width:1320px;margin:0 auto;padding:34px clamp(20px,3.5vw,48px) 72px;z-index:1}
 header{display:flex;align-items:center;justify-content:space-between;margin-bottom:52px}
-.logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-style:italic;font-size:20px;letter-spacing:.01em}
-.mark{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;border:1px solid var(--line-s);background:var(--bg2);color:var(--gold)}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:700;font-size:16px;letter-spacing:-.01em}
+.mark{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;border:1px solid var(--line-s);background:var(--bg2);color:var(--acc)}
 .status{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:transparent;border-radius:999px;padding:6px 13px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
 .status i{width:6px;height:6px;border-radius:50%;background:#57c584;animation:pg 2.2s infinite}
 @keyframes pg{0%{box-shadow:0 0 0 0 rgba(87,197,132,.5)}70%{box-shadow:0 0 0 7px rgba(87,197,132,0)}100%{box-shadow:0 0 0 0 rgba(87,197,132,0)}}
-.eyebrow{display:inline-block;font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
-h1{font-size:clamp(2.3rem,4.6vw,3.5rem);line-height:1.04;letter-spacing:-.035em;margin:16px 0 18px;font-weight:700;max-width:680px;color:var(--ink)}
-h1 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--gold-b)}
+.eyebrow{display:inline-block;font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+h1{font-size:clamp(2.3rem,4.6vw,3.5rem);line-height:1.04;letter-spacing:-.04em;margin:16px 0 18px;font-weight:800;max-width:680px;color:var(--ink)}
+h1 em{font-style:normal;font-weight:800;letter-spacing:-.04em;color:var(--acc)}
 .lede{color:var(--mut);max-width:610px;font-size:16.5px}
 .hero{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);gap:22px;align-items:stretch}
 .hero-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:360px;padding:10px 0}
 .actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:30px}
 .ghost{display:inline-flex;align-items:center;justify-content:center;min-height:41px;border:1px solid var(--line-s);background:transparent;border-radius:999px;padding:9px 19px;color:var(--ink);font-size:13px;font-weight:600;transition:all .22s ease}
-.ghost:hover{border-color:var(--gold);color:var(--gold-b)}
+.ghost:hover{border-color:var(--acc);color:var(--acc2)}
 .card{min-width:0;max-width:100%;box-sizing:border-box;border:1px solid var(--line);background:var(--bg2);border-radius:18px;padding:22px;margin-top:18px;transition:border-color .22s ease}
 .card:hover{border-color:var(--line-s)}
 .hero .card,.panel-grid .card{margin-top:0}
@@ -403,13 +402,13 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:
 .proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
 .mini-card{border:1px solid var(--line);background:var(--bg2);border-radius:16px;padding:18px;transition:border-color .22s ease}
 .mini-card:hover{border-color:var(--line-s)}
-.mini-card span{display:inline-flex;margin-bottom:12px;color:var(--gold);font-family:var(--serif);font-style:italic;font-size:15px}
+.mini-card span{display:inline-flex;margin-bottom:12px;color:var(--acc);font-family:var(--mono);font-size:12px;letter-spacing:.12em}
 .mini-card strong{display:block;font-size:14px;margin-bottom:5px}
 .mini-card p{color:var(--mut);font-size:12.5px;line-height:1.55}
 .panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .input-row{display:flex;min-width:0;gap:8px;flex-wrap:wrap}
 .input-row input{flex:1;min-width:220px;background:var(--bg);border:1px solid var(--line-s);border-radius:999px;padding:9px 15px;color:var(--ink);font:inherit;font-size:13px}
-.input-row input:focus{outline:none;border-color:var(--gold)}
+.input-row input:focus{outline:none;border-color:var(--acc)}
 .card-head{font-size:11.5px;text-transform:uppercase;letter-spacing:.16em;color:var(--dim);margin-bottom:14px;font-weight:600}
 table{width:100%;min-width:640px;border-collapse:collapse;font-size:13.5px}
 .tools-card{overflow:hidden}
@@ -420,30 +419,31 @@ td{padding:10px 12px 10px 0;border-top:1px solid var(--line);vertical-align:top}
 .muted{color:var(--mut)}
 .badge{font-size:11px;padding:2px 9px;border-radius:999px;font-weight:600;border:1px solid transparent}
 .badge.read{border-color:rgba(87,197,132,.3);color:#57c584}
-.badge.write{border-color:rgba(201,163,92,.4);color:var(--gold-b)}
+.badge.write{border-color:rgba(167,139,250,.4);color:var(--acc2)}
 pre{max-width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--mut);line-height:1.7}
-.c-cmd{color:var(--gold-b)}
+.c-cmd{color:var(--acc2)}
 .c-flag{color:var(--dim)}
 .c-str{color:var(--ink)}
 footer{margin-top:44px;border-top:1px solid var(--line);padding-top:22px;color:var(--dim);font-size:12.5px}
-a{color:var(--gold);text-decoration:none;transition:color .2s ease}
-a:hover{color:var(--gold-b)}
+footer a{text-decoration:underline;text-underline-offset:3px}
+a{color:var(--acc);text-decoration:none;transition:color .2s ease}
+a:hover{color:var(--acc2)}
 .btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-button{display:inline-flex;align-items:center;gap:8px;font:inherit;cursor:pointer;border:1px solid transparent;background:var(--ink);color:#141210;border-radius:999px;padding:9px 18px;font-size:12.5px;font-weight:600;letter-spacing:.01em;transition:all .22s ease}
-button:hover{background:var(--gold-b);transform:translateY(-1px)}
+button{display:inline-flex;align-items:center;gap:8px;font:inherit;cursor:pointer;border:1px solid transparent;background:var(--ink);color:#0f0d1a;border-radius:999px;padding:9px 18px;font-size:12.5px;font-weight:600;letter-spacing:.01em;transition:all .22s ease}
+button:hover{background:var(--acc2);transform:translateY(-1px)}
 .out{min-height:64px;white-space:pre-wrap}
 .suite-block{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.25fr);align-items:stretch;gap:16px;margin-top:36px;border-top:1px solid var(--line);padding-top:28px}
 .suite-copy{border:1px solid var(--line);background:var(--bg2);border-radius:18px;padding:20px}
-.suite-block h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:21px;line-height:1.35;color:var(--gold-b)}
+.suite-block h2{font-size:19px;line-height:1.35;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
 .suite-copy p{color:var(--mut);font-size:12.5px;line-height:1.6;margin-top:8px}
 .suite-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .suite-link{display:flex;min-width:0;align-items:center;gap:10px;border:1px solid var(--line);background:var(--bg2);border-radius:14px;padding:12px;color:var(--mut);font-size:11px;font-weight:600;transition:all .2s ease}
-.suite-link:hover{border-color:var(--gold);color:var(--ink)}
-.suite-mark{display:grid;place-items:center;flex:0 0 auto;width:32px;height:32px;border-radius:10px;border:1px solid var(--line-s);background:var(--bg);color:var(--gold);font-family:var(--serif);font-style:italic;font-size:14px;font-weight:400}
+.suite-link:hover{border-color:var(--acc);color:var(--ink)}
+.suite-mark{display:grid;place-items:center;flex:0 0 auto;width:32px;height:32px;border-radius:10px;border:1px solid var(--line-s);background:var(--bg);color:var(--acc);font-family:var(--mono);font-size:13px;font-weight:700}
 .suite-link strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:var(--ink)}
 .suite-link em{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-style:normal;font-size:10.5px;line-height:1.35;color:var(--dim)}
-.runtag{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.08em;color:var(--gold-b);border:1px solid var(--line-s);border-radius:999px;padding:2px 9px;margin-left:10px}
-.runtag i{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:blink 1.4s ease-in-out infinite}
+.runtag{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.08em;color:var(--acc2);border:1px solid var(--line-s);border-radius:999px;padding:2px 9px;margin-left:10px}
+.runtag i{width:5px;height:5px;border-radius:50%;background:var(--acc);animation:blink 1.4s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
 .ticker{height:170px;overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(180deg,transparent,#000 16%,#000 84%,transparent);mask-image:linear-gradient(180deg,transparent,#000 16%,#000 84%,transparent)}
 .ticker-inner{display:flex;flex-direction:column;gap:8px;animation:tick 16s linear infinite}
@@ -453,20 +453,20 @@ button:hover{background:var(--gold-b);transform:translateY(-1px)}
 .tcli{color:var(--dim);font-size:11px}
 .tok{color:#57c584;border:1px solid rgba(87,197,132,.3);border-radius:999px;padding:2px 9px;font-size:11px}
 .tno{color:#e2716a;border:1px solid rgba(226,113,106,.32);border-radius:999px;padding:2px 9px;font-size:11px}
-.chatbtn{position:fixed;bottom:20px;right:20px;width:50px;height:50px;border-radius:50%;border:1px solid var(--line-s);cursor:pointer;background:var(--bg2);color:var(--gold);padding:0;display:grid;place-items:center;box-shadow:0 14px 34px -12px rgba(0,0,0,.7);z-index:50;transition:all .2s ease}
-.chatbtn:hover{border-color:var(--gold);color:var(--gold-b);background:var(--bg2);transform:none}
+.chatbtn{position:fixed;bottom:20px;right:20px;width:50px;height:50px;border-radius:50%;border:1px solid var(--line-s);cursor:pointer;background:var(--bg2);color:var(--acc);padding:0;display:grid;place-items:center;box-shadow:0 14px 34px -12px rgba(0,0,0,.7);z-index:50;transition:all .2s ease}
+.chatbtn:hover{border-color:var(--acc);color:var(--acc2);background:var(--bg2);transform:none}
 .chatbox{position:fixed;bottom:82px;right:20px;width:min(92vw,360px);height:440px;display:none;flex-direction:column;background:var(--bg2);border:1px solid var(--line-s);border-radius:18px;overflow:hidden;z-index:50;box-shadow:0 20px 60px -20px rgba(0,0,0,.8)}
 .chatbox.open{display:flex}
-.chathead{padding:12px 14px;border-bottom:1px solid var(--line);font-family:var(--serif);font-style:italic;font-size:15px;color:var(--gold-b)}
+.chathead{padding:12px 14px;border-bottom:1px solid var(--line);font-family:var(--mono);font-weight:700;font-size:13px;color:var(--ink)}
 .chatmsgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
 .cm{max-width:82%;padding:8px 11px;border-radius:14px;font-size:13px;line-height:1.5}
-.cm.u{align-self:flex-end;background:rgba(201,163,92,.16);color:var(--ink)}
-.cm.a{align-self:flex-start;background:rgba(239,236,229,.05)}
+.cm.u{align-self:flex-end;background:rgba(167,139,250,.16);color:var(--ink)}
+.cm.a{align-self:flex-start;background:rgba(236,233,246,.05)}
 .chatform{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
 .chatform input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line-s);border-radius:999px;padding:8px 13px;color:var(--ink);font:inherit;font-size:13px}
-.chatform input:focus{outline:none;border-color:var(--gold)}
-.chatform button{border:none;border-radius:999px;padding:0 15px;background:var(--ink);color:#141210;font-weight:600;cursor:pointer}
-.chatform button:hover{background:var(--gold-b);transform:none}
+.chatform input:focus{outline:none;border-color:var(--acc)}
+.chatform button{border:none;border-radius:999px;padding:0 15px;background:var(--ink);color:#0f0d1a;font-weight:600;cursor:pointer}
+.chatform button:hover{background:var(--acc2);transform:none}
 @media(max-width:860px){
   main{padding:26px 16px 54px}
   header{margin-bottom:32px}
