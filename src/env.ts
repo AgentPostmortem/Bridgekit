@@ -5,7 +5,7 @@ export interface Env {
   SHOPIFY_STORE?: string;
   SHOPIFY_ADMIN_TOKEN?: string;
   TRIPLEWHALE_API_KEY?: string;
-  AI_GATEWAY_SECRET?: string;
+  GROQ_API_KEY?: string;
 }
 
 export interface ClientConfig {
