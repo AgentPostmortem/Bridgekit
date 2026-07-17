@@ -4,6 +4,12 @@ A scoped **MCP server** that exposes a company's tools (Shopify, Triple Whale,
 Postgres) to their AI stack with per-client permission boundaries and an
 append-only audit log.
 
+## Demo
+
+[![Bridgekit demo](docs/demo-thumb.png)](https://github.com/royalpinto007/Bridgekit/raw/main/docs/demo.mp4)
+
+*One-minute walkthrough (click to play). Live: https://bridgekit.agentpostmortem.com*
+
 The problem: a company's AI can't safely touch its real tools without someone
 hand-wiring brittle, over-permissioned integrations or handing an agent a raw
 API key. Bridgekit puts a controlled interface in front: each client gets an
