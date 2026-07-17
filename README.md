@@ -6,15 +6,10 @@ append-only audit log.
 
 ## Demo
 
-[![Bridgekit demo](docs/demo-thumb.png)](https://github.com/royalpinto007/Bridgekit/raw/main/docs/demo.mp4)
+[![Bridgekit demo](assets/demo-thumb.png)](assets/demo.mp4)
 
-*One-minute walkthrough (click to play). Live: https://bridgekit.agentpostmortem.com*
+▶ [Watch the demo](assets/demo.mp4) · Live: https://bridgekit.agentpostmortem.com
 
-The problem: a company's AI can't safely touch its real tools without someone
-hand-wiring brittle, over-permissioned integrations or handing an agent a raw
-API key. Bridgekit puts a controlled interface in front: each client gets an
-opaque key scoped to specific tools, write actions require an explicit write
-scope, and every call (allowed or denied) is logged.
 
 ## What it exposes
 
