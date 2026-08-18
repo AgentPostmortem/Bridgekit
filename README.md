@@ -76,3 +76,8 @@ curl -s "$URL/mcp" -H "x-bridgekit-key: bk_live_demo123" \
   -d '{"jsonrpc":"2.0","id":3,"method":"tools/call",
        "params":{"name":"shopify_tag_order","arguments":{"orderId":1001,"tags":"vip"}}}'
 ```
+
+
+## Add a copy-paste quickstart to the README
+
+Documentation reference and guidelines for #1.
