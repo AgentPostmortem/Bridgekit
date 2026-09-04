@@ -23,7 +23,11 @@ export const TOOLS: ToolDef[] = [
     inputSchema: {
       type: "object",
       properties: {
-        limit: { type: "number", description: "max orders (1-50)", default: 10 },
+        limit: {
+          type: "number",
+          description: "max orders (1-50; fractional values truncated, range clamped)",
+          default: 10,
+        },
       },
     },
     run: (env, args) => shopifyOrders(env, clampInt(args.limit, 10, 1, 50)),
@@ -45,7 +49,11 @@ export const TOOLS: ToolDef[] = [
       type: "object",
       properties: {
         table: { type: "string", description: "table name (allowlisted)" },
-        limit: { type: "number", description: "max rows (1-50)", default: 10 },
+        limit: {
+          type: "number",
+          description: "max rows (1-50; fractional values truncated, range clamped)",
+          default: 10,
+        },
       },
       required: ["table"],
     },
@@ -76,6 +84,6 @@ export function findTool(name: string): ToolDef | undefined {
 
 function clampInt(v: unknown, def: number, min: number, max: number): number {
   const n = typeof v === "number" ? v : parseInt(String(v ?? ""), 10);
-  if (Number.isNaN(n)) return def;
-  return Math.max(min, Math.min(max, n));
+  if (!Number.isFinite(n)) return def;
+  return Math.max(min, Math.min(max, Math.trunc(n)));
 }
