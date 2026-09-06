@@ -55,6 +55,55 @@ function aiRequest(env, headers = {}) {
   );
 }
 
+function mcpRequest(env, body) {
+  return worker.fetch(
+    new Request("https://bridgekit.test/mcp", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-bridgekit-key": "client-key",
+      },
+      body: JSON.stringify(body),
+    }),
+    env,
+  );
+}
+
+test("tools/call rejects non-object arguments", async (t) => {
+  let upstreamCalls = 0;
+  globalThis.fetch = async () => {
+    upstreamCalls += 1;
+    return new Response("{}");
+  };
+  const env = {
+    BRIDGEKIT_CLIENTS: JSON.stringify({
+      "client-key": {
+        name: "writer",
+        tools: ["shopify_tag_order"],
+        allowWrite: true,
+      },
+    }),
+  };
+
+  for (const argumentsValue of ["vip", null, [], 42, true]) {
+    await t.test(JSON.stringify(argumentsValue), async () => {
+      const response = await mcpRequest(env, {
+        jsonrpc: "2.0",
+        id: 7,
+        method: "tools/call",
+        params: { name: "shopify_tag_order", arguments: argumentsValue },
+      });
+
+      assert.deepEqual(await response.json(), {
+        jsonrpc: "2.0",
+        id: 7,
+        error: { code: -32602, message: "invalid params: arguments must be an object" },
+      });
+    });
+  }
+  assert.equal(upstreamCalls, 0);
+});
+
 test("/ai rejects requests without a client key before calling the model", async () => {
   let upstreamCalls = 0;
   globalThis.fetch = async () => {
