@@ -69,6 +69,26 @@ function mcpRequest(env, body) {
   );
 }
 
+test("rejects non-object JSON-RPC request bodies", async (t) => {
+  const env = {
+    BRIDGEKIT_CLIENTS: JSON.stringify({
+      "client-key": { name: "reader", tools: [], allowWrite: false },
+    }),
+  };
+
+  for (const body of [null, [], "ping", 42, true]) {
+    await t.test(JSON.stringify(body), async () => {
+      const response = await mcpRequest(env, body);
+
+      assert.deepEqual(await response.json(), {
+        jsonrpc: "2.0",
+        id: null,
+        error: { code: -32600, message: "invalid request" },
+      });
+    });
+  }
+});
+
 test("tools/call rejects non-object arguments", async (t) => {
   let upstreamCalls = 0;
   globalThis.fetch = async () => {

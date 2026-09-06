@@ -13,6 +13,10 @@ interface RpcRequest {
   params?: Record<string, unknown>;
 }
 
+function isRpcRequestObject(value: unknown): value is RpcRequest {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url);
@@ -51,11 +55,14 @@ export default {
       return aiChat(req, env);
     }
 
-    let body: RpcRequest;
+    let body: unknown;
     try {
-      body = (await req.json()) as RpcRequest;
+      body = await req.json();
     } catch {
       return json(rpcError(null, -32700, "parse error"));
+    }
+    if (!isRpcRequestObject(body)) {
+      return json(rpcError(null, -32600, "invalid request"));
     }
 
     const result = await handle(body, env, caller);
