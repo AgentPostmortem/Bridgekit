@@ -51,14 +51,18 @@ export default {
       return aiChat(req, env);
     }
 
-    let body: RpcRequest;
+    let body: unknown;
     try {
-      body = (await req.json()) as RpcRequest;
+      body = await req.json();
     } catch {
       return json(rpcError(null, -32700, "parse error"));
     }
 
-    const result = await handle(body, env, caller);
+    if (body === null || typeof body !== "object" || Array.isArray(body)) {
+      return json(rpcError(null, -32600, "invalid request"));
+    }
+
+    const result = await handle(body as RpcRequest, env, caller);
     // Notifications (no id) get a 202 with no body per JSON-RPC.
     if (result === undefined) return new Response(null, { status: 202 });
     return json(result);

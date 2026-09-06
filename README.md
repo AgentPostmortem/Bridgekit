@@ -27,7 +27,8 @@ configured, so the server is demoable without a live store.
 
 MCP over **Streamable HTTP**: clients POST JSON-RPC 2.0 to `/mcp`. Implements
 `initialize`, `tools/list`, `tools/call`, and `ping`. `tools/list` only advertises
-the tools the calling client is scoped for.
+the tools the calling client is scoped for. Non-object JSON values receive a
+JSON-RPC `-32600` Invalid Request response before dispatch.
 
 ## Auth & scopes
 
