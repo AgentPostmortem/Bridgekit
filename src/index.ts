@@ -33,11 +33,6 @@ export default {
       });
     }
 
-    // AI assistant proxy (server-side; holds the gateway secret).
-    if (req.method === "POST" && url.pathname === "/ai") {
-      return aiChat(req, env);
-    }
-
     if (req.method !== "POST") {
       return json({ error: "POST JSON-RPC to /mcp" }, 405);
     }
@@ -49,6 +44,11 @@ export default {
         rpcError(null, -32001, "unauthorized: missing or unknown client key"),
         401,
       );
+    }
+
+    // AI assistant proxy (server-side; holds the gateway secret).
+    if (url.pathname === "/ai") {
+      return aiChat(req, env);
     }
 
     let body: RpcRequest;
