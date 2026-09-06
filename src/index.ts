@@ -57,6 +57,9 @@ export default {
     } catch {
       return json(rpcError(null, -32700, "parse error"));
     }
+    if (typeof body !== "object" || body === null || Array.isArray(body)) {
+      return json(rpcError(null, -32600, "Invalid Request"));
+    }
 
     const result = await handle(body, env, caller);
     // Notifications (no id) get a 202 with no body per JSON-RPC.

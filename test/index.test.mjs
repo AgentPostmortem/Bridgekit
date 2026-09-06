@@ -104,6 +104,26 @@ test("tools/call rejects non-object arguments", async (t) => {
   assert.equal(upstreamCalls, 0);
 });
 
+test("non-object JSON-RPC bodies get -32600 Invalid Request", async (t) => {
+  const env = {
+    BRIDGEKIT_CLIENTS: JSON.stringify({
+      "client-key": { name: "test client", tools: [], allowWrite: false },
+    }),
+  };
+
+  for (const badBody of [null, [], "foo", 42, true]) {
+    await t.test(`body ${JSON.stringify(badBody)}`, async () => {
+      const response = await mcpRequest(env, badBody);
+
+      assert.deepEqual(await response.json(), {
+        jsonrpc: "2.0",
+        id: null,
+        error: { code: -32600, message: "Invalid Request" },
+      });
+    });
+  }
+});
+
 test("/ai rejects requests without a client key before calling the model", async () => {
   let upstreamCalls = 0;
   globalThis.fetch = async () => {
