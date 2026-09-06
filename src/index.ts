@@ -102,7 +102,19 @@ async function handle(
 
     case "tools/call": {
       const name = String(params?.name ?? "");
-      const args = (params?.arguments ?? {}) as Record<string, unknown>;
+      const rawArgs = params?.arguments;
+      if (
+        rawArgs === null ||
+        (rawArgs !== undefined &&
+          (typeof rawArgs !== "object" || Array.isArray(rawArgs)))
+      ) {
+        return rpcError(
+          id ?? null,
+          -32602,
+          "invalid params: arguments must be an object",
+        );
+      }
+      const args = (rawArgs ?? {}) as Record<string, unknown>;
       const tool = findTool(name);
 
       if (!tool) {
