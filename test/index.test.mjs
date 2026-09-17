@@ -167,3 +167,38 @@ test("/ai still serves an authenticated client", async () => {
   assert.deepEqual(await response.json(), { reply: "model reply" });
   assert.equal(requestedUrl, "https://api.groq.com/openai/v1/chat/completions");
 });
+
+test("/ai clamps non-numeric max to the default 140 instead of sending null", async (t) => {
+  const upstreamBodies = [];
+  globalThis.fetch = async (input, init) => {
+    upstreamBodies.push(JSON.parse(init.body));
+    return new Response(
+      JSON.stringify({ choices: [{ message: { content: "model reply" } }] }),
+      { headers: { "content-type": "application/json" } },
+    );
+  };
+  const env = {
+    GROQ_API_KEY: "test-groq-key",
+    BRIDGEKIT_CLIENTS: JSON.stringify({
+      "client-key": { name: "test client", tools: [], allowWrite: false },
+    }),
+  };
+  const headers = { "x-bridgekit-key": "client-key" };
+
+  for (const max of ["abc", {}]) {
+    await t.test(JSON.stringify(max), async () => {
+      const response = await worker.fetch(
+        new Request("https://bridgekit.test/ai", {
+          method: "POST",
+          headers: { "content-type": "application/json", ...headers },
+          body: JSON.stringify({ prompt: "Explain Bridgekit", max }),
+        }),
+        env,
+      );
+      assert.equal(response.status, 200);
+      const last = upstreamBodies.at(-1);
+      assert.ok(last, "upstream call should have been made");
+      assert.equal(last.max_tokens, 140, `max ${JSON.stringify(max)} must clamp to 140`);
+    });
+  }
+});
