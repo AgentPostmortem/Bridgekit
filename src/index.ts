@@ -221,7 +221,10 @@ async function aiChat(req: Request, env: Env): Promise<Response> {
   const fixed = fixedAiReply(prompt);
   if (fixed) return json({ reply: fixed });
   if (!env.GROQ_API_KEY) return json({ error: "AI not configured" }, 503);
-  const outputMax = Math.min(Math.max(max ?? 140, 32), 220);
+  const rawMax = typeof max === "number" ? max : NaN;
+  const outputMax = Number.isFinite(rawMax)
+    ? Math.min(Math.max(rawMax, 32), 220)
+    : 140;
   try {
     const r = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
